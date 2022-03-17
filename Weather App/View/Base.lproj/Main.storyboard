@@ -24,15 +24,16 @@
             </objects>
             <point key="canvasLocation" x="135" y="169"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Forecast-->
         <scene sceneID="tCL-7G-OsR">
             <objects>
                 <navigationController id="Q15-ac-e6R" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="Rqb-mk-Yal"/>
+                    <tabBarItem key="tabBarItem" title="Forecast" image="cloud.sun" catalog="system" id="Rqb-mk-Yal"/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="OwJ-yt-Pcs"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gov-Ra-2yB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Dsm-e3-vvh" kind="relationship" relationship="rootViewController" id="Zql-yE-gRb"/>
@@ -45,18 +46,59 @@
         <!--Current Location-->
         <scene sceneID="gs9-Tv-3Me">
             <objects>
-                <viewController id="Dsm-e3-vvh" customClass="SearchWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Dsm-e3-vvh" customClass="ForecastWeatherViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fc1-81-DR9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBz-Az-bJf">
-                                <rect key="frame" x="87" y="373" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="iBz-Az-bJf">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgr-0T-ZV9">
+                                <rect key="frame" x="8" y="96" width="398" height="35"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB8-dj-i7A">
+                                <rect key="frame" x="8" y="194.5" width="398" height="35"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1r-V0-oLK">
+                                <rect key="frame" x="16" y="139" width="382" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSC-1w-ItW">
+                                <rect key="frame" x="16" y="237.5" width="382" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="I1j-2M-zph"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iBz-Az-bJf" secondAttribute="bottom" id="13g-Jb-JTs"/>
+                            <constraint firstItem="Rgr-0T-ZV9" firstAttribute="leading" secondItem="I1j-2M-zph" secondAttribute="leading" constant="8" id="3eB-SC-WO5"/>
+                            <constraint firstItem="GB8-dj-i7A" firstAttribute="leading" secondItem="I1j-2M-zph" secondAttribute="leading" constant="8" id="3qK-1I-2Nz"/>
+                            <constraint firstItem="I1j-2M-zph" firstAttribute="trailing" secondItem="GB8-dj-i7A" secondAttribute="trailing" constant="8" id="8uS-Bo-ssz"/>
+                            <constraint firstItem="n1r-V0-oLK" firstAttribute="leading" secondItem="I1j-2M-zph" secondAttribute="leading" constant="16" id="8uk-y9-nHc"/>
+                            <constraint firstItem="iBz-Az-bJf" firstAttribute="leading" secondItem="fc1-81-DR9" secondAttribute="leading" id="9SW-R5-vTD"/>
+                            <constraint firstItem="iBz-Az-bJf" firstAttribute="top" secondItem="fc1-81-DR9" secondAttribute="top" id="E7z-Gz-XtR"/>
+                            <constraint firstAttribute="trailing" secondItem="iBz-Az-bJf" secondAttribute="trailing" id="Lh2-ee-Va8"/>
+                            <constraint firstItem="I1j-2M-zph" firstAttribute="trailing" secondItem="n1r-V0-oLK" secondAttribute="trailing" constant="16" id="N6Z-Sx-PP3"/>
+                            <constraint firstItem="n1r-V0-oLK" firstAttribute="top" secondItem="Rgr-0T-ZV9" secondAttribute="bottom" constant="8" id="S1C-2n-smD" userLabel="Temperature Label.top = Temperature.bottom + 16"/>
+                            <constraint firstItem="Rgr-0T-ZV9" firstAttribute="top" secondItem="I1j-2M-zph" secondAttribute="top" constant="8" id="ZEE-TV-rjQ"/>
+                            <constraint firstItem="QSC-1w-ItW" firstAttribute="leading" secondItem="I1j-2M-zph" secondAttribute="leading" constant="16" id="ayg-0X-fzC"/>
+                            <constraint firstItem="I1j-2M-zph" firstAttribute="trailing" secondItem="QSC-1w-ItW" secondAttribute="trailing" constant="16" id="eUl-0y-S2f"/>
+                            <constraint firstItem="QSC-1w-ItW" firstAttribute="top" secondItem="GB8-dj-i7A" secondAttribute="bottom" constant="8" id="ndO-q6-vt1"/>
+                            <constraint firstItem="GB8-dj-i7A" firstAttribute="top" secondItem="n1r-V0-oLK" secondAttribute="bottom" constant="30" id="tYb-ei-c8N"/>
+                            <constraint firstItem="I1j-2M-zph" firstAttribute="trailing" secondItem="Rgr-0T-ZV9" secondAttribute="trailing" constant="8" id="tp6-2a-G1T"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Current Location" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="tpg-e7-qg0">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="kLy-uH-A24">
@@ -68,10 +110,14 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="humidityLabel" destination="QSC-1w-ItW" id="qvR-x0-OEV"/>
+                        <outlet property="temperatureLabel" destination="n1r-V0-oLK" id="MXn-2l-PKq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tn3-nu-gxs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="899" y="-567"/>
+            <point key="canvasLocation" x="898.55072463768124" y="-567.1875"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0W9-TC-yDJ">
@@ -81,6 +127,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial"/>
                     </tabBar>
                     <connections>
                         <segue destination="Q15-ac-e6R" kind="relationship" relationship="viewControllers" id="bYW-6t-EAG"/>
@@ -93,6 +140,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Image" width="792" height="612"/>
+        <image name="cloud.sun" catalog="system" width="128" height="95"/>
         <image name="location" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

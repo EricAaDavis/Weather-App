@@ -10,5 +10,5 @@ import Foundation
 struct Wind: Codable {
     var speed: Float
     var deg: Int
-    var gust: Float
+//    var gust: Float
 }

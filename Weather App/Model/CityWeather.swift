@@ -12,7 +12,7 @@ struct CityWeather: Codable {
     var condition: Condition
     var wind: Wind
     var clouds: Clouds
-    var name: String
+    var cityName: String
     
     
     enum CodingKeys: String, CodingKey {
@@ -20,7 +20,7 @@ struct CityWeather: Codable {
         case condition = "main"
         case wind
         case clouds
-        case name
+        case cityName = "name"
     }
     
     init(from decoder: Decoder) throws {
@@ -30,6 +30,6 @@ struct CityWeather: Codable {
         self.condition = try container.decode(Condition.self, forKey: .condition)
         self.wind = try container.decode(Wind.self, forKey: .wind)
         self.clouds = try container.decode(Clouds.self, forKey: .clouds)
-        self.name = try container.decode(String.self, forKey: .name)
+        self.cityName = try container.decode(String.self, forKey: .cityName)
     }
 }

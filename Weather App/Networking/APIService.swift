@@ -14,10 +14,21 @@ struct WeatherRequest: APIRequest {
     
     var path: String = "/data/2.5/weather"
     
-    var queryItems: [URLQueryItem]? = [
-        URLQueryItem(name: "q", value: "oslo"),
-        URLQueryItem(name: "appid", value: "e3054674cca873c300c8558256792c23")
-    ]
+    var location: String
+    
+    var queryItems: [URLQueryItem]? {
+        
+        let queryItems = [
+            URLQueryItem(name: "q", value: location),
+            URLQueryItem(name: "appid", value: "e3054674cca873c300c8558256792c23"),
+            URLQueryItem(name: "units", value: "metric")
+        ]
+        
+       return queryItems
+        
+    }
+    
+    
     
 
     
