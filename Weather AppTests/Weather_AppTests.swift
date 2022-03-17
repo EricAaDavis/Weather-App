@@ -38,7 +38,7 @@ class Weather_AppTests: XCTestCase {
             }
         }
         
-        wait(for: [promise], timeout: 10)
+        wait(for: [promise], timeout: 5)
         
     }
 

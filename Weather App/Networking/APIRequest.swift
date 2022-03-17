@@ -46,6 +46,7 @@ extension APIRequest where Response: Decodable {
                     completion(.failure(error))
                 }
             } catch {
+                print(error)
                 print("Catch")
             }
         }.resume()

@@ -14,7 +14,7 @@ struct Main: Codable {
     var temp_max: Float
     var pressure: Int
     var humidity: Int
-    var sea_level: Int
-    var grnd_level: Int
+//    var sea_level: Int
+//    var grnd_level: Int
 }
    
