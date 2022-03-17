@@ -10,7 +10,7 @@ import Foundation
 //https://api.openweathermap.org/data/2.5/weather?q=oslo&appid=e3054674cca873c300c8558256792c23
 
 struct WeatherRequest: APIRequest {
-    typealias Response = CityWeather
+    typealias Response = Weather
     
     var path: String = "/data/2.5/weather"
     

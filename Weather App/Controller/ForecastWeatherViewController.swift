@@ -12,61 +12,61 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     
+    let searchController = UISearchController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let search = UISearchController(searchResultsController: nil)
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Search Location"
-        navigationItem.searchController = search
-        // Do any additional setup after loading the view.
+       
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Location"
+        navigationItem.searchController = searchController
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        
-        
         view.addGestureRecognizer(tap)
         
-        updateUI(location: "oslo")
+        getWeatherFor(location: "oslo")
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+//        searchController.searchBar.endEditing(true)
+        searchController.searchBar.resignFirstResponder()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         let locationText = searchController.searchBar.text
         
         if let locationText = locationText {
-            updateUI(location: locationText.lowercased())
+            getWeatherFor(location: locationText.lowercased())
         }
     }
     
-    func updateUI(location: String) {
+    
+    
+    func updateUI(weather: Weather) {
+        temperatureLabel.text = "\(weather.condition.temp) C˚"
+        humidityLabel.text = "\(weather.condition.humidity)%"
+        
+    }
+    
+    //TODO: put these two functions in a view model file or manager.
+//    getWeatherFor(coordinate:)
+    
+    func getWeatherFor(location: String) {
         WeatherRequest(location: location).send { response in
             switch response {
             case .success(let weather):
                 DispatchQueue.main.async {
-                    self.navigationItem.title = weather.cityName
-                    self.temperatureLabel.text = "\(weather.condition.temp)"
-                    self.humidityLabel.text = "\(weather.condition.humidity)%"
+                    self.updateUI(weather: weather)
                 }
             case .failure(let error):
                 print(error)
             }
-            
         }
     }
     
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+        
 }
+
