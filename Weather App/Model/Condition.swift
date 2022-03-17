@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Main: Codable {
+struct Condition: Codable {
     var temp: Float
     var feels_like: Float
     var temp_min: Float

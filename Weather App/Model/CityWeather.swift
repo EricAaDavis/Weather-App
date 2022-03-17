@@ -9,7 +9,7 @@ import Foundation
 
 struct CityWeather: Codable {
     var weather: [weather]
-    var condition: Main
+    var condition: Condition
     var wind: Wind
     var clouds: Clouds
     var name: String
@@ -27,7 +27,7 @@ struct CityWeather: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.weather = try container.decode(Array<weather>.self, forKey: .weather)
-        self.condition = try container.decode(Main.self, forKey: .condition)
+        self.condition = try container.decode(Condition.self, forKey: .condition)
         self.wind = try container.decode(Wind.self, forKey: .wind)
         self.clouds = try container.decode(Clouds.self, forKey: .clouds)
         self.name = try container.decode(String.self, forKey: .name)
