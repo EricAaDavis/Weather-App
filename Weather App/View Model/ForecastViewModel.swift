@@ -51,8 +51,10 @@ class ForecastViewModel {
         case 761: return "dust"
             //Tornado
         case 781: return "tornado"
+            //Scattered clouds
+        case 801...802: return "cloud.sun"
             //Cloudy
-        case 801...804: return "cloud"
+        case 803...804: return "cloud"
             //Clear sky
         default: return "sun.max"
         }

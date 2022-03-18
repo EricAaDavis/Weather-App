@@ -6,17 +6,20 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
-class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, ForecastViewModelDelegate {
+class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, ForecastViewModelDelegate  {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
-    @IBOutlet weak var maxTemperatureLabel: UILabel!
-    @IBOutlet weak var minTemperatureLabel: UILabel!
     @IBOutlet weak var feelsLikeTemperatureLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var weatherConditionImage: UIImageView!
+    @IBOutlet weak var weatherConditionView: UIView!
     
+    let locationManager = CLLocationManager()
     
     let searchController = UISearchController()
     var viewModel = ForecastViewModel()
@@ -32,9 +35,20 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        viewModel.delegate = self
+        weatherConditionView.layer.cornerRadius = 10
         
+        viewModel.delegate = self
         viewModel.getWeatherFor(location: "oslo")
+        
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
     }
     
     @objc func dismissKeyboard() {
@@ -52,11 +66,16 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
     
     func updateUI(for weather: Weather) {
         self.title = weather.cityName
+        descriptionLabel.text = weather.weatherDescription[0].description
         
-//        temperatureLabel.text = "\(weather.condition.temp) C˚"
-//        humidityLabel.text = "\(weather.condition.humidity)%"
+        currentTemperatureLabel.text = "Current \(weather.condition.temp)C˚ | Min \(weather.condition.temp_min) C˚ | Max \(weather.condition.temp_max) C˚"
+        feelsLikeTemperatureLabel.text = "\(weather.condition.feels_like) C˚"
         
-        
+        humidityLabel.text = "\(weather.condition.humidity)%"
+        pressureLabel.text = "\(weather.condition.pressure)"
+        let conditionImageName = viewModel.weatherImage(for: weather.weatherDescription[0].id)
+        print(conditionImageName)
+        weatherConditionImage.image = UIImage(systemName: conditionImageName)
     }
     
     func weatherFetched() {
@@ -66,5 +85,21 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
     }
     //TODO: put these two functions in a view model file or manager.
 //    getWeatherFor(coordinate:)
+    
+    @IBAction func getCurrentLocationTapped(_ sender: UIBarButtonItem) {
+        print("Current location")
+    }
+    
+    @IBAction func getWeatherForCurrentLocationTapped(_ sender: Any) {
+        
+    }
+    
 }
 
+extension ForecastWeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude), \(locValue.longitude)")
+        
+    }
+}
