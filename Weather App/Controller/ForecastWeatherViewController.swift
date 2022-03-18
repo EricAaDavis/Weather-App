@@ -7,12 +7,19 @@
 
 import UIKit
 
-class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating {
+class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, ForecastViewModelDelegate {
     
-    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var currentTemperatureLabel: UILabel!
+    @IBOutlet weak var maxTemperatureLabel: UILabel!
+    @IBOutlet weak var minTemperatureLabel: UILabel!
+    @IBOutlet weak var feelsLikeTemperatureLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    
     
     let searchController = UISearchController()
+    var viewModel = ForecastViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +32,9 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        getWeatherFor(location: "oslo")
+        viewModel.delegate = self
+        
+        viewModel.getWeatherFor(location: "oslo")
     }
     
     @objc func dismissKeyboard() {
@@ -37,36 +46,25 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating {
         let locationText = searchController.searchBar.text
         
         if let locationText = locationText {
-            getWeatherFor(location: locationText.lowercased())
+            viewModel.getWeatherFor(location: locationText.lowercased())
         }
     }
     
-    
-    
-    func updateUI(weather: Weather) {
-        temperatureLabel.text = "\(weather.condition.temp) C˚"
-        humidityLabel.text = "\(weather.condition.humidity)%"
+    func updateUI(for weather: Weather) {
+        self.title = weather.cityName
+        
+//        temperatureLabel.text = "\(weather.condition.temp) C˚"
+//        humidityLabel.text = "\(weather.condition.humidity)%"
+        
         
     }
     
+    func weatherFetched() {
+        if let weather = viewModel.fetchedWeather {
+            updateUI(for: weather)
+        }
+    }
     //TODO: put these two functions in a view model file or manager.
 //    getWeatherFor(coordinate:)
-    
-    func getWeatherFor(location: String) {
-        WeatherRequest(location: location).send { response in
-            switch response {
-            case .success(let weather):
-                DispatchQueue.main.async {
-                    self.updateUI(weather: weather)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    
-
-        
 }
 

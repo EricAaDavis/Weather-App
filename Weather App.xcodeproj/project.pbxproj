@@ -21,6 +21,7 @@
 		20A940C627E32A43001504DA /* Weather_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940C527E32A43001504DA /* Weather_AppTests.swift */; };
 		20A940CD27E3382E001504DA /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CC27E3382E001504DA /* Condition.swift */; };
 		20A940CF27E34CD5001504DA /* ForecastWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */; };
+		20DB2F4327E46E1C00E902B6 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		20A940C527E32A43001504DA /* Weather_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_AppTests.swift; sourceTree = "<group>"; };
 		20A940CC27E3382E001504DA /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherViewController.swift; sourceTree = "<group>"; };
+		20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		20AAE0CB27E3714F00543DC1 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				20534A4827E1D725006ED499 /* AppDelegate.swift in Sources */,
 				20534A9F27E31AF3006ED499 /* Weather.swift in Sources */,
 				20534A9B27E220E2006ED499 /* APIRequest.swift in Sources */,
+				20DB2F4327E46E1C00E902B6 /* ForecastViewModel.swift in Sources */,
 				20534AA127E31B5F006ED499 /* WeatherDescription.swift in Sources */,
 				20534A4A27E1D725006ED499 /* SceneDelegate.swift in Sources */,
 				20534AA727E31E96006ED499 /* Clouds.swift in Sources */,
