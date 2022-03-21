@@ -90,10 +90,6 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
         print("Current location")
     }
     
-    @IBAction func getWeatherForCurrentLocationTapped(_ sender: Any) {
-        
-    }
-    
 }
 
 extension ForecastWeatherViewController: CLLocationManagerDelegate {
