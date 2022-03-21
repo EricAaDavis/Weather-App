@@ -6,30 +6,33 @@
 //
 
 import Foundation
-
-protocol ForecastViewModelDelegate: AnyObject {
-    func weatherFetched()
-}
+import Combine
 
 class ForecastViewModel {
-    
-    weak var delegate: ForecastViewModelDelegate?
-    
-    var fetchedWeather: Weather?
+        
+    @Published var fetchedWeather: Weather?
     
     func getWeatherFor(location: String) {
-        WeatherRequest(location: location).send { response in
+        WeatherRequestLocation(location: location).send { response in
             switch response {
             case .success(let weather):
-                DispatchQueue.main.async {
-                    self.fetchedWeather = weather
-                    self.delegate?.weatherFetched()
-                }
+                self.fetchedWeather = weather
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    func getWeatherFor(lat: String, lon: String) {
+        WeatherRequestLatLon(lat: lat, lon: lon).send { response in
+            switch response {
+            case .success(let weather):
+                self.fetchedWeather = weather
+            case .failure(let error):
+                print(error)
+            }
+        }
+     }
     
     func weatherImage(for number: Int) -> String {
         switch number {
@@ -59,5 +62,4 @@ class ForecastViewModel {
         default: return "sun.max"
         }
     }
-    
 }

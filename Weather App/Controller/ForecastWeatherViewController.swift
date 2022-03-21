@@ -8,8 +8,9 @@
 import UIKit
 import CoreLocation
 import MapKit
+import Combine
 
-class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, ForecastViewModelDelegate  {
+class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
@@ -24,22 +25,17 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
     let searchController = UISearchController()
     var viewModel = ForecastViewModel()
     
+    var cancellables: Set<AnyCancellable> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        setupSubscription()
+        
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Location"
         navigationItem.searchController = searchController
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        weatherConditionView.layer.cornerRadius = 10
-        
-        viewModel.delegate = self
-        viewModel.getWeatherFor(location: "oslo")
-        
+    
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
@@ -49,32 +45,42 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
             locationManager.startUpdatingLocation()
         }
         
+        weatherConditionView.layer.cornerRadius = 10
     }
     
-    @objc func dismissKeyboard() {
-//        searchController.searchBar.endEditing(true)
-        searchController.searchBar.resignFirstResponder()
+    private func setupSubscription() {
+        viewModel.$fetchedWeather
+            .filter { $0 != nil }
+            .receive(on: DispatchQueue.main)
+            .sink { self.updateUI(for: $0!) }
+            .store(in: &cancellables)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        let locationText = searchController.searchBar.text
+        let selector = #selector(fetchWeatherForLocation)
         
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
+        
+        perform(selector, with: nil, afterDelay: 0.3)
+    }
+    
+    @objc func fetchWeatherForLocation() {
+        let locationText = searchController.searchBar.text
         if let locationText = locationText {
-            viewModel.getWeatherFor(location: locationText.lowercased())
+            let urlString = locationText.lowercased()
+                viewModel.getWeatherFor(location: urlString)
         }
     }
     
     func updateUI(for weather: Weather) {
         self.title = weather.cityName
         descriptionLabel.text = weather.weatherDescription[0].description
-        
         currentTemperatureLabel.text = "Current \(weather.condition.temp)C˚ | Min \(weather.condition.temp_min) C˚ | Max \(weather.condition.temp_max) C˚"
         feelsLikeTemperatureLabel.text = "\(weather.condition.feels_like) C˚"
-        
         humidityLabel.text = "\(weather.condition.humidity)%"
         pressureLabel.text = "\(weather.condition.pressure)"
+        
         let conditionImageName = viewModel.weatherImage(for: weather.weatherDescription[0].id)
-        print(conditionImageName)
         weatherConditionImage.image = UIImage(systemName: conditionImageName)
     }
     
@@ -83,19 +89,16 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating, 
             updateUI(for: weather)
         }
     }
-    //TODO: put these two functions in a view model file or manager.
-//    getWeatherFor(coordinate:)
     
-    @IBAction func getCurrentLocationTapped(_ sender: UIBarButtonItem) {
-        print("Current location")
+    @IBAction func getWeatherForLocationTapped(_ sender: Any) {
+        locationManager.startUpdatingLocation()
     }
-    
 }
 
 extension ForecastWeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude), \(locValue.longitude)")
-        
+        viewModel.getWeatherFor(lat: String(locValue.latitude), lon: String(locValue.longitude))
+        locationManager.stopUpdatingLocation()
     }
 }
