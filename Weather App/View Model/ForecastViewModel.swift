@@ -17,7 +17,9 @@ class ForecastViewModel {
         WeatherRequestLocation(location: location).send { response in
             switch response {
             case .success(let weather):
-                self.fetchedWeather = weather
+                DispatchQueue.main.async {
+                    self.fetchedWeather = weather
+                }
             case .failure(let error):
                 print(error)
             }

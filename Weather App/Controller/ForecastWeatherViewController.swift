@@ -32,7 +32,10 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         setupSubscription()
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        resultViewController = storyboard.instantiateViewController(withIdentifier: "resultsVC") as? ResultsTableViewController
+        resultViewController = storyboard.instantiateViewController(identifier: "resultsVC", creator: { coder in
+            ResultsTableViewController(coder: coder, viewModel: self.viewModel)
+        })
+//        resultViewController = storyboard.instantiateViewController(withIdentifier: "resultsVC") as? ResultsTableViewController
         
         searchController = UISearchController(searchResultsController: resultViewController)
         searchController.searchResultsUpdater = self
@@ -54,9 +57,15 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     
     private func setupSubscription() {
         viewModel.$fetchedWeather
-            .filter { $0 != nil }
+            .print()
             .receive(on: DispatchQueue.main)
-            .sink { self.updateUI(for: $0!) }
+            .sink(receiveCompletion: { _ in
+                print("End of stream")
+            }, receiveValue: { weather in
+                print(weather)
+                guard let weather = weather else { return }
+                self.updateUI(for: weather)
+            })
             .store(in: &cancellables)
     }
     
@@ -98,6 +107,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     
     func updateUI(for weather: Weather) {
         searchController.searchResultsController?.dismiss(animated: true)
+        
         self.title = weather.cityName
         descriptionLabel.text = weather.weatherDescription[0].description
         currentTemperatureLabel.text = "Current \(weather.condition.temp)C˚ | Min \(weather.condition.temp_min) C˚ | Max \(weather.condition.temp_max) C˚"

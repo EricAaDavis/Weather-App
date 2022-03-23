@@ -9,7 +9,16 @@ import UIKit
 
 class ResultsTableViewController: UITableViewController {
 
-    var viewModel = ForecastViewModel()
+    var viewModel: ForecastViewModel
+        
+    init?(coder: NSCoder, viewModel: ForecastViewModel) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +39,7 @@ class ResultsTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.getWeatherFor(location: "oslo")
     }
 
