@@ -11,6 +11,7 @@ import Combine
 class ForecastViewModel {
         
     @Published var fetchedWeather: Weather?
+    @Published var fetchedLocations: Locations?
     
     func getWeatherFor(location: String) {
         WeatherRequestLocation(location: location).send { response in
@@ -33,6 +34,17 @@ class ForecastViewModel {
             }
         }
      }
+    
+    func getCityAutoCompletion(locationPrefix: String) {
+        CityAutocompleteRequest(locationPrefix: locationPrefix).send { response in
+            switch response {
+            case .success(let locations):
+                self.fetchedLocations = locations
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     func weatherImage(for number: Int) -> String {
         switch number {

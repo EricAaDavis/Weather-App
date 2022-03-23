@@ -49,13 +49,13 @@ struct CityAutocompleteRequest: APIRequest {
     var host = "geodb-free-service.wirefreethought.com"
     var path = "/v1/geo/cities"
     
-    var cityPrefix: String
+    var locationPrefix: String
     
     var queryItems: [URLQueryItem]? {
         let queryItems = [
             URLQueryItem(name: "limit", value: "10"),
             URLQueryItem(name: "offset", value: "0"),
-            URLQueryItem(name: "namePrefix", value: cityPrefix)
+            URLQueryItem(name: "namePrefix", value: locationPrefix)
         ]
         return queryItems
     }

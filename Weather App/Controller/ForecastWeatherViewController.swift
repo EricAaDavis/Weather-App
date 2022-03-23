@@ -21,8 +21,8 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     @IBOutlet weak var weatherConditionView: UIView!
     
     let locationManager = CLLocationManager()
-    
-    let searchController = UISearchController()
+    var resultViewController: ResultsTableViewController!
+    var searchController: UISearchController!
     var viewModel = ForecastViewModel()
     
     var cancellables: Set<AnyCancellable> = []
@@ -31,6 +31,10 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         super.viewDidLoad()
         setupSubscription()
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        resultViewController = storyboard.instantiateViewController(withIdentifier: "resultsVC") as? ResultsTableViewController
+        
+        searchController = UISearchController(searchResultsController: resultViewController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Location"
@@ -62,17 +66,38 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
         
         perform(selector, with: nil, afterDelay: 0.3)
+        
     }
+//    let locationText = searchController.searchBar.text
+//    if let locationText = locationText {
+//        let urlString = locationText.lowercased()
+//            viewModel.getWeatherFor(location: urlString)
+//    }
     
     @objc func fetchWeatherForLocation() {
-        let locationText = searchController.searchBar.text
-        if let locationText = locationText {
-            let urlString = locationText.lowercased()
-                viewModel.getWeatherFor(location: urlString)
+        guard let prefix = searchController.searchBar.text else { return }
+        
+        if prefix != "" {
+            let prefixLowercased = prefix.lowercased()
+            
+            CityAutocompleteRequest(locationPrefix: prefixLowercased).send { response in
+                switch response {
+                case .success(let cities):
+                    var newDatasource = [String]()
+                    cities.cityData.forEach { newDatasource.append("\($0.name), \($0.country)") }
+                    DispatchQueue.main.async {
+                        self.resultViewController.dataSource  = newDatasource
+                        self.resultViewController.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
     
     func updateUI(for weather: Weather) {
+        searchController.searchResultsController?.dismiss(animated: true)
         self.title = weather.cityName
         descriptionLabel.text = weather.weatherDescription[0].description
         currentTemperatureLabel.text = "Current \(weather.condition.temp)C˚ | Min \(weather.condition.temp_min) C˚ | Max \(weather.condition.temp_max) C˚"
@@ -83,13 +108,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         let conditionImageName = viewModel.weatherImage(for: weather.weatherDescription[0].id)
         weatherConditionImage.image = UIImage(systemName: conditionImageName)
     }
-    
-    func weatherFetched() {
-        if let weather = viewModel.fetchedWeather {
-            updateUI(for: weather)
-        }
-    }
-    
+
     @IBAction func getWeatherForLocationTapped(_ sender: Any) {
         locationManager.startUpdatingLocation()
     }
