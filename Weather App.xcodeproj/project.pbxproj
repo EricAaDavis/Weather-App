@@ -28,6 +28,9 @@
 		20A940CD27E3382E001504DA /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CC27E3382E001504DA /* Condition.swift */; };
 		20A940CF27E34CD5001504DA /* ForecastWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */; };
 		20C60F9E27EC6F0800697BC2 /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */; };
+		20C60FA427EC8B7E00697BC2 /* Sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C60FA327EC8B7E00697BC2 /* Sys.swift */; };
+		20C60FA627EC946600697BC2 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C60FA527EC946600697BC2 /* RequestType.swift */; };
+		20C60FA827EC974100697BC2 /* DecimalRounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C60FA727EC974100697BC2 /* DecimalRounding.swift */; };
 		20DB2F4327E46E1C00E902B6 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */; };
 		20FA691F27EB254F002B5048 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +70,9 @@
 		20A940CC27E3382E001504DA /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherViewController.swift; sourceTree = "<group>"; };
 		20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
+		20C60FA327EC8B7E00697BC2 /* Sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sys.swift; sourceTree = "<group>"; };
+		20C60FA527EC946600697BC2 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		20C60FA727EC974100697BC2 /* DecimalRounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalRounding.swift; sourceTree = "<group>"; };
 		20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				20415A5227E8AF1000A8F4F3 /* Storyboarded.swift */,
+				20C60FA727EC974100697BC2 /* DecimalRounding.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -141,8 +148,10 @@
 				20A940CC27E3382E001504DA /* Condition.swift */,
 				20534AA427E31DD6006ED499 /* Wind.swift */,
 				20534AA627E31E96006ED499 /* Clouds.swift */,
+				20C60FA327EC8B7E00697BC2 /* Sys.swift */,
 				2060805227E89E1500FED14E /* Locations.swift */,
 				2060805027E89D7900FED14E /* CityData.swift */,
+				20C60FA527EC946600697BC2 /* RequestType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -317,9 +326,12 @@
 				20534AA127E31B5F006ED499 /* WeatherDescription.swift in Sources */,
 				20534A4A27E1D725006ED499 /* SceneDelegate.swift in Sources */,
 				20534AA727E31E96006ED499 /* Clouds.swift in Sources */,
+				20C60FA827EC974100697BC2 /* DecimalRounding.swift in Sources */,
 				20A940CD27E3382E001504DA /* Condition.swift in Sources */,
 				20415A5327E8AF1000A8F4F3 /* Storyboarded.swift in Sources */,
 				20415A5527E8AF4400A8F4F3 /* ExampleViewController.swift in Sources */,
+				20C60FA427EC8B7E00697BC2 /* Sys.swift in Sources */,
+				20C60FA627EC946600697BC2 /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

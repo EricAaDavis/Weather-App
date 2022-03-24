@@ -7,8 +7,6 @@
 
 import Foundation
 
-//https://api.openweathermap.org/data/2.5/weather?q=oslo&appid=e3054674cca873c300c8558256792c23
-
 struct WeatherRequestLocation: APIRequest {
     typealias Response = Weather
     

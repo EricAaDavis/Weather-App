@@ -12,14 +12,15 @@ struct Weather: Codable {
     var condition: Condition
     var wind: Wind
     var clouds: Clouds
+    var sys: Sys
     var cityName: String
-    
     
     enum CodingKeys: String, CodingKey {
         case weatherDescription = "weather"
         case condition = "main"
         case wind
         case clouds
+        case sys
         case cityName = "name"
     }
     
@@ -30,6 +31,7 @@ struct Weather: Codable {
         self.condition = try container.decode(Condition.self, forKey: .condition)
         self.wind = try container.decode(Wind.self, forKey: .wind)
         self.clouds = try container.decode(Clouds.self, forKey: .clouds)
+        self.sys = try container.decode(Sys.self, forKey: .sys)
         self.cityName = try container.decode(String.self, forKey: .cityName)
     }
 }

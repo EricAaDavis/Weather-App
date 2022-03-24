@@ -12,14 +12,14 @@ class ForecastViewModel {
         
     @Published var fetchedWeather: Weather?
     @Published var fetchedLocations: Locations?
+    var requestType: RequestType!
     
     func getWeatherFor(location: String) {
         WeatherRequestLocation(location: location).send { response in
             switch response {
             case .success(let weather):
-                DispatchQueue.main.async {
-                    self.fetchedWeather = weather
-                }
+                self.fetchedWeather = weather
+                self.requestType = .locationName
             case .failure(let error):
                 print(error)
             }
@@ -31,6 +31,7 @@ class ForecastViewModel {
             switch response {
             case .success(let weather):
                 self.fetchedWeather = weather
+                self.requestType = .coordinate
             case .failure(let error):
                 print(error)
             }

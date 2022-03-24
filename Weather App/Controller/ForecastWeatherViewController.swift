@@ -19,11 +19,16 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var weatherConditionImage: UIImageView!
     @IBOutlet weak var weatherConditionView: UIView!
+    @IBOutlet weak var getWeatherForCoordinateButton: UIBarButtonItem!
+    @IBOutlet weak var weatherDataStackView: UIStackView!
+    @IBOutlet weak var favouriteLocationButton: UIButton!
     
     let locationManager = CLLocationManager()
-    var resultViewController: ResultsTableViewController!
     var searchController: UISearchController!
+    var resultViewController: ResultsTableViewController!
     var viewModel = ForecastViewModel()
+    
+    var favouriteLocationState = false
     
     var cancellables: Set<AnyCancellable> = []
     
@@ -35,13 +40,16 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         resultViewController = storyboard.instantiateViewController(identifier: "resultsVC", creator: { coder in
             ResultsTableViewController(coder: coder, viewModel: self.viewModel)
         })
-//        resultViewController = storyboard.instantiateViewController(withIdentifier: "resultsVC") as? ResultsTableViewController
+        
+        weatherDataStackView.alpha = 0
         
         searchController = UISearchController(searchResultsController: resultViewController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Location"
         navigationItem.searchController = searchController
+        
+        
     
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -82,7 +90,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         
         if prefix != "" {
             let prefixLowercased = prefix.lowercased()
-            
+            resultViewController.activityIndicator.startAnimating()
             CityAutocompleteRequest(locationPrefix: prefixLowercased).send { response in
                 switch response {
                 case .success(let cities):
@@ -100,21 +108,60 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     }
     
     func updateUI(for weather: Weather) {
+        displayWeatherData()
         searchController.searchResultsController?.dismiss(animated: true)
         searchController.searchBar.text = nil
         
-        self.title = weather.cityName
+        if viewModel.requestType == .coordinate {
+            fillLocationButton()
+        } else if viewModel.requestType == .locationName {
+            getWeatherForCoordinateButton.image = UIImage(systemName: "location")
+        }
+        
+        self.title = "\(weather.cityName), \(weather.sys.country.lowercased())"
         descriptionLabel.text = weather.weatherDescription[0].description
-        currentTemperatureLabel.text = "Current \(weather.condition.temp)C˚ | Min \(weather.condition.temp_min) C˚ | Max \(weather.condition.temp_max) C˚"
-        feelsLikeTemperatureLabel.text = "\(weather.condition.feels_like) C˚"
+        
+        let currentTempRounded = preciseRound(weather.condition.temp, precision: .tenths)
+        let minTempRounded = preciseRound(weather.condition.temp_min, precision: .tenths)
+        let maxTempRounded = preciseRound(weather.condition.temp_max, precision: .tenths)
+        currentTemperatureLabel.text = "Current \(currentTempRounded) C˚ | Min \(minTempRounded) C˚ | Max \(maxTempRounded) C˚"
+        
+        let feelsLikeRounded = preciseRound(weather.condition.feels_like, precision: .ones)
+        feelsLikeTemperatureLabel.text = "\(String(format: "%.0f", feelsLikeRounded)) C˚"
+        
         humidityLabel.text = "\(weather.condition.humidity)%"
-        pressureLabel.text = "\(weather.condition.pressure)"
+        pressureLabel.text = "\(weather.condition.pressure) hPa"
         
         let conditionImageName = viewModel.weatherImage(for: weather.weatherDescription[0].id)
         weatherConditionImage.image = UIImage(systemName: conditionImageName)
     }
+    
+    func displayWeatherData() {
+        weatherDataStackView.alpha = 0
+        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseInOut) {
+            self.weatherDataStackView.alpha = 1
+        } completion: { _ in }
+    }
+    
+    func fillLocationButton() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
+            self.getWeatherForCoordinateButton.image = UIImage(systemName: "location.fill")
+        } completion: { _ in
+            self.favouriteLocationState.toggle()
+        }
+    }
 
-    @IBAction func getWeatherForLocationTapped(_ sender: Any) {
+    @IBAction func testAction(_ sender: UIButton) {
+        if !favouriteLocationState {
+            self.favouriteLocationButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.favouriteLocationState.toggle()
+        } else {
+            self.favouriteLocationButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.favouriteLocationState.toggle()
+        }
+    }
+    
+    @IBAction func getWeatherForCoordinateTapped(_ sender: Any) {
         locationManager.startUpdatingLocation()
     }
 }
