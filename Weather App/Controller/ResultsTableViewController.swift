@@ -10,7 +10,8 @@ import UIKit
 class ResultsTableViewController: UITableViewController {
 
     var viewModel: ForecastViewModel
-        
+    
+    //TODO: What is going on here?
     init?(coder: NSCoder, viewModel: ForecastViewModel) {
         self.viewModel = viewModel
         super.init(coder: coder)
@@ -40,7 +41,9 @@ class ResultsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.getWeatherFor(location: "oslo")
+        let cityAndCountry = dataSource[indexPath.row].components(separatedBy: ", ")
+        let city = cityAndCountry[0].lowercased()
+        viewModel.getWeatherFor(location: city)
     }
 
     /*

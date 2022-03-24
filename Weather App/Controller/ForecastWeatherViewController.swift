@@ -31,7 +31,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         super.viewDidLoad()
         setupSubscription()
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "SearchResults", bundle: nil)
         resultViewController = storyboard.instantiateViewController(identifier: "resultsVC", creator: { coder in
             ResultsTableViewController(coder: coder, viewModel: self.viewModel)
         })
@@ -62,7 +62,6 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
             .sink(receiveCompletion: { _ in
                 print("End of stream")
             }, receiveValue: { weather in
-                print(weather)
                 guard let weather = weather else { return }
                 self.updateUI(for: weather)
             })
@@ -77,11 +76,6 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         perform(selector, with: nil, afterDelay: 0.3)
         
     }
-//    let locationText = searchController.searchBar.text
-//    if let locationText = locationText {
-//        let urlString = locationText.lowercased()
-//            viewModel.getWeatherFor(location: urlString)
-//    }
     
     @objc func fetchWeatherForLocation() {
         guard let prefix = searchController.searchBar.text else { return }
@@ -107,6 +101,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     
     func updateUI(for weather: Weather) {
         searchController.searchResultsController?.dismiss(animated: true)
+        searchController.searchBar.text = nil
         
         self.title = weather.cityName
         descriptionLabel.text = weather.weatherDescription[0].description

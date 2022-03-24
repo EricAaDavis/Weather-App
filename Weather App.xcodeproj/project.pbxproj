@@ -27,6 +27,7 @@
 		20A940C627E32A43001504DA /* Weather_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940C527E32A43001504DA /* Weather_AppTests.swift */; };
 		20A940CD27E3382E001504DA /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CC27E3382E001504DA /* Condition.swift */; };
 		20A940CF27E34CD5001504DA /* ForecastWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */; };
+		20C60F9E27EC6F0800697BC2 /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */; };
 		20DB2F4327E46E1C00E902B6 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */; };
 		20FA691F27EB254F002B5048 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		20A940C527E32A43001504DA /* Weather_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_AppTests.swift; sourceTree = "<group>"; };
 		20A940CC27E3382E001504DA /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherViewController.swift; sourceTree = "<group>"; };
+		20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +153,7 @@
 				20534A4D27E1D725006ED499 /* Main.storyboard */,
 				20534A5227E1D726006ED499 /* LaunchScreen.storyboard */,
 				20415A4F27E8ADA200A8F4F3 /* Example.storyboard */,
+				20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20C60F9E27EC6F0800697BC2 /* SearchResults.storyboard in Resources */,
 				20534A5427E1D726006ED499 /* LaunchScreen.storyboard in Resources */,
 				20415A5027E8ADA200A8F4F3 /* Example.storyboard in Resources */,
 				20534A5127E1D726006ED499 /* Assets.xcassets in Resources */,
