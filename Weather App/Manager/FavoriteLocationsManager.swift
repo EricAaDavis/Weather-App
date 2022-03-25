@@ -11,12 +11,12 @@ final class FavoriteLocationsManager {
     
     private let store: WeatherStore = WeatherStore.shared
     
-    var retrieveAllFavoriteLocations: [String] {
+    var favoriteLocations: [String] {
         store.storedWeatherLocations
     }
     
     func saveFavoriteLocation(location: String) {
-        var storedLocations = store.storedWeatherLocations
+        var storedLocations = favoriteLocations
         
         if storedLocations.contains(location) {
             print("Already saved")
@@ -28,7 +28,7 @@ final class FavoriteLocationsManager {
     }
     
     func removeFavoriteLocation(location: String) {
-        var storedLocations = store.storedWeatherLocations
+        var storedLocations = favoriteLocations
         
         storedLocations.removeAll { $0 == location }
         store.storedWeatherLocations = storedLocations

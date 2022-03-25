@@ -16,7 +16,7 @@ class CityRequest: XCTestCase {
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
-        sut = CityAutocompleteRequest(cityPrefix: "oslo")
+        sut = CityAutocompleteRequest(locationPrefix: "oslo")
     }
 
     override func tearDownWithError() throws {

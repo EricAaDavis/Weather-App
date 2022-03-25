@@ -38,6 +38,9 @@
 		20DC8C9E27EDA84F00E00EEE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8C9D27EDA84F00E00EEE /* Constants.swift */; };
 		20DC8CA027EDAEB600E00EEE /* FavoriteLocationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8C9F27EDAEB600E00EEE /* FavoriteLocationsManager.swift */; };
 		20DC8CA327EDAFF900E00EEE /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA227EDAFF900E00EEE /* WeatherStore.swift */; };
+		20DC8CA527EDB87E00E00EEE /* FavoriteLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA427EDB87E00E00EEE /* FavoriteLocationsViewModel.swift */; };
+		20DC8CA727EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA627EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift */; };
+		20DC8CA927EDC21B00E00EEE /* StoredLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA827EDC21B00E00EEE /* StoredLocations.swift */; };
 		20FA691F27EB254F002B5048 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +89,9 @@
 		20DC8C9D27EDA84F00E00EEE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		20DC8C9F27EDAEB600E00EEE /* FavoriteLocationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationsManager.swift; sourceTree = "<group>"; };
 		20DC8CA227EDAFF900E00EEE /* WeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStore.swift; sourceTree = "<group>"; };
+		20DC8CA427EDB87E00E00EEE /* FavoriteLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationsViewModel.swift; sourceTree = "<group>"; };
+		20DC8CA627EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWeatherLocationTest.swift; sourceTree = "<group>"; };
+		20DC8CA827EDC21B00E00EEE /* StoredLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredLocations.swift; sourceTree = "<group>"; };
 		20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +220,8 @@
 		20A940C427E32A43001504DA /* Weather AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				20DC8CA827EDC21B00E00EEE /* StoredLocations.swift */,
+				20DC8CA627EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift */,
 				20A940C527E32A43001504DA /* Weather_AppTests.swift */,
 				2060805427E8A6AF00FED14E /* CityRequest.swift */,
 			);
@@ -224,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				20DB2F4227E46E1C00E902B6 /* ForecastViewModel.swift */,
+				20DC8CA427EDB87E00E00EEE /* FavoriteLocationsViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 				20DC8C9E27EDA84F00E00EEE /* Constants.swift in Sources */,
 				20534A9D27E22A9D006ED499 /* APIService.swift in Sources */,
 				20A940CF27E34CD5001504DA /* ForecastWeatherViewController.swift in Sources */,
+				20DC8CA527EDB87E00E00EEE /* FavoriteLocationsViewModel.swift in Sources */,
 				20534AA527E31DD6006ED499 /* Wind.swift in Sources */,
 				2060805327E89E1500FED14E /* Locations.swift in Sources */,
 				20534A4827E1D725006ED499 /* AppDelegate.swift in Sources */,
@@ -372,6 +382,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2060805627E8A6AF00FED14E /* CityRequest.swift in Sources */,
+				20DC8CA927EDC21B00E00EEE /* StoredLocations.swift in Sources */,
+				20DC8CA727EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift in Sources */,
 				20A940C627E32A43001504DA /* Weather_AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
