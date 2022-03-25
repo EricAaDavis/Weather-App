@@ -10,3 +10,5 @@ import Foundation
 struct Clouds: Codable {
     var all: Int
 }
+
+extension Clouds: Hashable { }

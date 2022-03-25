@@ -132,7 +132,7 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         humidityLabel.text = "\(weather.condition.humidity)%"
         pressureLabel.text = "\(weather.condition.pressure) hPa"
         
-        let conditionImageName = viewModel.weatherImage(for: weather.weatherDescription[0].id)
+        let conditionImageName = ForecastViewModel.weatherImage(for: weather.weatherDescription[0].id)
         weatherConditionImage.image = UIImage(systemName: conditionImageName)
     }
     

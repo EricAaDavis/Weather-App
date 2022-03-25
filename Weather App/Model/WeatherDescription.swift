@@ -13,4 +13,5 @@ struct WeatherDescription: Codable {
     var description: String
     var icon: String
 }
-    
+
+extension WeatherDescription: Hashable { }

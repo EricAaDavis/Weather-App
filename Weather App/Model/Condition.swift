@@ -18,3 +18,4 @@ struct Condition: Codable {
 //    var grnd_level: Int
 }
    
+extension Condition: Hashable { }

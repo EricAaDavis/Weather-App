@@ -7,36 +7,45 @@
 
 import UIKit
 
-class FavouriteLocationsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class FavouriteLocationsViewController: UIViewController, UICollectionViewDelegate {
     
 
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    typealias DataSourceType = UICollectionViewDiffableDataSource<String, Weather>
+    
+    var snapshot = NSDiffableDataSourceSnapshot<String, Weather>()
+    var dataSource: DataSourceType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.dataSource = self
     }
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func createDataSource() -> DataSourceType {
+        let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, item in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: C.shared.savedLocationCellReuseIdentifier, for: indexPath) as! FavouriteLocationCollectionViewCell
+            
+            let location = item.cityName
+            let temperature = item.condition.temp
+            let description = item.weatherDescription[0].description
+            let weatherCondition = item.weatherDescription[0].id
+            
+            cell.layer.cornerRadius = 20
+            
+            cell.setupCell(
+                location: location,
+                temperature: temperature,
+                description: description,
+                weatherConditionID: weatherCondition)
+            
+            return cell
+            
+        }
+        return dataSource
     }
-    */
-
+    
 }

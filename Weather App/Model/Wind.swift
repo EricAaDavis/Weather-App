@@ -12,3 +12,5 @@ struct Wind: Codable {
     var deg: Int
 //    var gust: Float
 }
+
+extension Wind: Hashable { }

@@ -8,6 +8,7 @@
 import Foundation
 
 struct Weather: Codable {
+    
     var weatherDescription: [WeatherDescription]
     var condition: Condition
     var wind: Wind
@@ -35,3 +36,5 @@ struct Weather: Codable {
         self.cityName = try container.decode(String.self, forKey: .cityName)
     }
 }
+
+extension Weather: Hashable { }

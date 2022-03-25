@@ -49,7 +49,7 @@ class ForecastViewModel {
         }
     }
     
-    func weatherImage(for number: Int) -> String {
+   static func weatherImage(for number: Int) -> String {
         switch number {
             //Thunderstorm
         case 200...232: return  "cloud.bolt.rain"

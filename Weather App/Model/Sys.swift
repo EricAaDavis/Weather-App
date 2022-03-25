@@ -10,3 +10,5 @@ import Foundation
 struct Sys: Codable {
     var country: String
 }
+
+extension Sys: Hashable { }
