@@ -27,8 +27,11 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     var searchController: UISearchController!
     var resultViewController: ResultsTableViewController!
     var viewModel = ForecastViewModel()
-    
-    var favouriteLocationState = false
+    var favouriteLocationsManager = FavouriteLocationsManager()
+    var cityName: String!
+    var favouriteLocationState: Bool {
+        favouriteLocationsManager.containsFavoriteLocation(location: cityName)
+    }
     
     var cancellables: Set<AnyCancellable> = []
     
@@ -61,6 +64,11 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         }
         
         weatherConditionView.layer.cornerRadius = 10
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("View did appear")
     }
     
     private func setupSubscription() {
@@ -134,6 +142,9 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         
         let conditionImageName = ForecastViewModel.weatherImage(for: weather.weatherDescription[0].id)
         weatherConditionImage.image = UIImage(systemName: conditionImageName)
+        
+        cityName = weather.cityName
+        toggleButtonAppearance(isFavorite: favouriteLocationState)
     }
     
     func displayWeatherData() {
@@ -146,19 +157,25 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
     func fillLocationButton() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
             self.getWeatherForCoordinateButton.image = UIImage(systemName: "location.fill")
-        } completion: { _ in
-            self.favouriteLocationState.toggle()
+        } completion: { _ in }
+    }
+    
+    func toggleButtonAppearance(isFavorite: Bool) {
+        if isFavorite {
+            self.favouriteLocationButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            self.favouriteLocationButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
     }
 
     @IBAction func testAction(_ sender: UIButton) {
         if !favouriteLocationState {
-            self.favouriteLocationButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            self.favouriteLocationState.toggle()
+            favouriteLocationsManager.saveFavoriteLocation(location: cityName)
         } else {
-            self.favouriteLocationButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            self.favouriteLocationState.toggle()
+            favouriteLocationsManager.removeFavoriteLocation(location: cityName)
         }
+        toggleButtonAppearance(isFavorite: favouriteLocationState)
+        print(favouriteLocationsManager.favoriteLocations)
     }
     
     @IBAction func getWeatherForCoordinateTapped(_ sender: Any) {

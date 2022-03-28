@@ -10,6 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--FavoriteLocation-->
+        <scene sceneID="HVA-Y4-2ij">
+            <objects>
+                <viewControllerPlaceholder storyboardName="favouriteLocations" referencedIdentifier="FavoriteLocation" id="cSe-w7-yF4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="1q5-yj-sDd"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohp-px-t2n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-91" y="126"/>
+        </scene>
         <!--ExampleViewController-->
         <scene sceneID="85b-TV-Bcm">
             <objects>
@@ -20,27 +30,14 @@
             </objects>
             <point key="canvasLocation" x="-599" y="200"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="4Kr-17-NgI">
-            <objects>
-                <viewController id="8da-UE-dzd" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6im-0y-hSl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="7jW-4G-jCt"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="iGI-gi-LFC"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PUQ-jp-evG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="135" y="155"/>
-        </scene>
         <!--Forecast-->
         <scene sceneID="tCL-7G-OsR">
             <objects>
-                <navigationController id="Q15-ac-e6R" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Forecast" image="cloud.sun" catalog="system" id="Rqb-mk-Yal"/>
+                <navigationController toolbarHidden="NO" id="Q15-ac-e6R" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Forecast" id="Rqb-mk-Yal">
+                        <imageReference key="image" image="cloud.sun" catalog="system" symbolScale="medium"/>
+                        <imageReference key="selectedImage" image="cloud.sun.fill" catalog="system" symbolScale="large" renderingMode="original"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="OwJ-yt-Pcs"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gov-Ra-2yB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -266,8 +263,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Q15-ac-e6R" kind="relationship" relationship="viewControllers" id="bYW-6t-EAG"/>
-                        <segue destination="8da-UE-dzd" kind="relationship" relationship="viewControllers" id="rfT-KI-jfl"/>
                         <segue destination="WeS-Cd-rJC" kind="relationship" relationship="viewControllers" id="9ob-So-d8Q"/>
+                        <segue destination="cSe-w7-yF4" kind="relationship" relationship="viewControllers" id="YGs-ik-mwW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxH-RJ-VzE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -278,6 +275,7 @@
     <resources>
         <image name="Weather background" width="1728" height="1152"/>
         <image name="cloud.sun" catalog="system" width="128" height="95"/>
+        <image name="cloud.sun.fill" catalog="system" width="128" height="95"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="location" catalog="system" width="128" height="118"/>
         <image name="sun.max" catalog="system" width="128" height="124"/>

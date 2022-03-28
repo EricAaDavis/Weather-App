@@ -9,7 +9,6 @@
         <!--Results Table View Controller-->
         <scene sceneID="z2i-Qv-nDM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="82K-Jb-Yay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="resultsVC" id="52P-Ek-a0z" customClass="ResultsTableViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="lFK-M5-zja">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -47,6 +46,7 @@
                         <outlet property="activityIndicator" destination="Yws-j8-ixv" id="lKH-sG-M7h"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="82K-Jb-Yay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="268" y="153"/>
         </scene>

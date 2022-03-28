@@ -7,7 +7,9 @@
 
 import Foundation
 
-final class FavoriteLocationsManager {
+final class FavouriteLocationsManager {
+    
+//    static let shared = FavouriteLocationsManager()
     
     private let store: WeatherStore = WeatherStore.shared
     
@@ -15,22 +17,28 @@ final class FavoriteLocationsManager {
         store.storedWeatherLocations
     }
     
+    //Checks whether the passed in location is stored in the store
+    func containsFavoriteLocation(location: String) -> Bool {
+        let locationLowerCased = location.lowercased()
+        return favoriteLocations.contains(locationLowerCased)
+    }
+    
     func saveFavoriteLocation(location: String) {
+        let locationLowerCased = location.lowercased()
         var storedLocations = favoriteLocations
-        
-        if storedLocations.contains(location) {
+        if storedLocations.contains(locationLowerCased) {
             print("Already saved")
             return
         }
-        
-        storedLocations.append(location)
+        storedLocations.append(locationLowerCased)
         store.storedWeatherLocations = storedLocations
     }
     
     func removeFavoriteLocation(location: String) {
+        let locationLowerCased = location.lowercased()
         var storedLocations = favoriteLocations
         
-        storedLocations.removeAll { $0 == location }
+        storedLocations.removeAll { $0 == locationLowerCased }
         store.storedWeatherLocations = storedLocations
     }
 }

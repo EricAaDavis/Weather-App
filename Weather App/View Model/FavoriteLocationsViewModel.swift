@@ -15,14 +15,14 @@ final class FavoriteLocationsViewModel {
     
     weak var delegate: FavoriteLocationsDelegate?
     
-    let favoriteLocationsManager = FavoriteLocationsManager()
+    let favoriteLocationsManager = FavouriteLocationsManager()
     
     var model = Model()
     
-    func getWeatherForStoredLocations(locations: [String]) {
+    func getWeatherForStoredLocations() {
         let group = DispatchGroup()
-//        let storedLocations = favoriteLocationsManager.favoriteLocations
-        for storedLocation in locations {
+        let storedLocations = favoriteLocationsManager.favoriteLocations
+        for storedLocation in storedLocations {
             group.enter()
             WeatherRequestLocation(location: storedLocation).send { response in
                 switch response {
