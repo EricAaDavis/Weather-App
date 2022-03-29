@@ -168,14 +168,13 @@ class ForecastWeatherViewController: UIViewController, UISearchResultsUpdating  
         }
     }
 
-    @IBAction func testAction(_ sender: UIButton) {
+    @IBAction func favourizeLocationButtonTapped(_ sender: UIButton) {
         if !favouriteLocationState {
             favouriteLocationsManager.saveFavoriteLocation(location: cityName)
         } else {
             favouriteLocationsManager.removeFavoriteLocation(location: cityName)
         }
         toggleButtonAppearance(isFavorite: favouriteLocationState)
-        print(favouriteLocationsManager.favoriteLocations)
     }
     
     @IBAction func getWeatherForCoordinateTapped(_ sender: Any) {

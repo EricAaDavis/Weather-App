@@ -9,6 +9,7 @@ import Foundation
 
 struct Weather: Codable {
     
+    var coordinate: Coordinate
     var weatherDescription: [WeatherDescription]
     var condition: Condition
     var wind: Wind
@@ -17,6 +18,7 @@ struct Weather: Codable {
     var cityName: String
     
     enum CodingKeys: String, CodingKey {
+        case coordinate = "coord"
         case weatherDescription = "weather"
         case condition = "main"
         case wind
@@ -28,6 +30,7 @@ struct Weather: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        self.coordinate = try container.decode(Coordinate.self, forKey: .coordinate)
         self.weatherDescription = try container.decode(Array<WeatherDescription>.self, forKey: .weatherDescription)
         self.condition = try container.decode(Condition.self, forKey: .condition)
         self.wind = try container.decode(Wind.self, forKey: .wind)

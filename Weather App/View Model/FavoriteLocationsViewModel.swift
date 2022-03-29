@@ -20,6 +20,7 @@ final class FavoriteLocationsViewModel {
     var model = Model()
     
     func getWeatherForStoredLocations() {
+        model.weatherLocations = []
         let group = DispatchGroup()
         let storedLocations = favoriteLocationsManager.favoriteLocations
         for storedLocation in storedLocations {

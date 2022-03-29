@@ -13,7 +13,7 @@
         <!--FavoriteLocation-->
         <scene sceneID="HVA-Y4-2ij">
             <objects>
-                <viewControllerPlaceholder storyboardName="favouriteLocations" referencedIdentifier="FavoriteLocation" id="cSe-w7-yF4" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="FavouriteLocations" referencedIdentifier="FavoriteLocation" id="cSe-w7-yF4" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="1q5-yj-sDd"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohp-px-t2n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -83,7 +83,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="testAction:" destination="Dsm-e3-vvh" eventType="touchUpInside" id="UjT-8N-5mG"/>
+                                                            <action selector="favourizeLocationButtonTapped:" destination="Dsm-e3-vvh" eventType="touchUpInside" id="5ns-zK-59M"/>
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6oz-eB-UIb">

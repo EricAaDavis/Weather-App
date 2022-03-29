@@ -11,4 +11,5 @@ struct C {
     static let shared = C()
     
     let savedLocationCellReuseIdentifier = "FavoriteLocationCell"
+    let mapCellReuseIdentifier = "MapCollectionViewCell"
 }

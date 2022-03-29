@@ -16,7 +16,7 @@ class FavouriteLocationCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 20
+        layer.cornerRadius = 15
     }
     
     func setupCell(location: String, temperature: Float, description: String, weatherConditionID: Int) {
