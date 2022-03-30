@@ -18,7 +18,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     var snapshot = NSDiffableDataSourceSnapshot<String, Weather>()
     var dataSource: DataSourceType!
-    var currentIndexPath: IndexPath = .init(index: 0)
+    var currentIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     
     let weatherLocations: [Weather]
     var currentlyDisplayedLocation: Weather? {
@@ -49,6 +49,13 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         collectionView.collectionViewLayout = createLayout()
         
         updateCollectionView()
+        
+        currentlyDisplayedLocation = weatherLocations[0]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        currentlyDisplayedLocation = weatherLocations[0]
     }
     
     func showNewLocationOnMap(location: Weather) {
@@ -82,9 +89,13 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: C.shared.mapCellReuseIdentifier, for: indexPath) as! MapCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: C.shared.mapCellReuseIdentifier, for: indexPath) as! FavouriteLocationCollectionViewCell
             
-            cell.cityLabel.text = item.cityName
+            cell.setupCell(
+                location: item.cityName,
+                temperature: item.condition.temp,
+                description: item.weatherDescription[0].description,
+                weatherConditionID: item.weatherDescription[0].id)
         
             return cell
         }
@@ -92,13 +103,19 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     }
     
     func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 20
+        let spacing: CGFloat = 15
         
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: spacing,
+            bottom: 0,
+            trailing: spacing)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.8),
@@ -112,75 +129,27 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = spacing
+//        section.interGroupSpacing = spacing
         section.orthogonalScrollingBehavior = .groupPagingCentered
         section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, environment in
-//            print(visibleItems.map {$0.indexPath.row} )
-//            print(point)
-            guard let self = self else {return}
-            guard let indexPath = self.collectionView.centerIndexPath() else {return}
-            
+            guard let self = self else { return }
+            guard let indexPath = self.collectionView.centerIndexPath() else { return }
+
+            self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
+
             if self.currentIndexPath != indexPath {
-                self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
+
             }
-            
         }
         
         let layout = UICollectionViewCompositionalLayout(section: section)
-        
         return layout
     }
     
     func centerIndexPath(point: CGPoint) -> IndexPath? {
-        guard
-//            let point = collectionView.superview?.convert(point, to: collectionView),
-            let indexPath = collectionView.indexPathForItem(at: point)
-        else {
-            return nil
-        }
+        guard let indexPath = collectionView.indexPathForItem(at: point) else { return nil }
         return indexPath
     }
-
-    
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        var index: Int {
-            if indexPath.row == 0 {
-                return 0
-            } else {
-                return indexPath.row - 1
-            }
-        }
-        
-//        print("\(indexPath.row), \(index)")
-//        T(weatherLocations[indexPath.row].cityName)
-        currentlyDisplayedLocation = weatherLocations[indexPath.row]
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let visibleCells = collectionView.visibleCells
-//        print(visibleCells)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("Did end dragging")
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("Did scroll")
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension UICollectionView {

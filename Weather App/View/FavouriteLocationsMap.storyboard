@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -34,29 +33,57 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapCollectionViewCell" id="0QV-1C-0H6" customClass="MapCollectionViewCell" customModule="Weather_App" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapCollectionViewCell" id="0QV-1C-0H6" customClass="FavouriteLocationCollectionViewCell" customModule="Weather_App" customModuleProvider="target">
                                         <rect key="frame" x="40.5" y="0.0" width="333" height="174"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oyH-NT-apE">
                                             <rect key="frame" x="0.0" y="0.0" width="333" height="174"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiG-uS-vS2">
-                                                    <rect key="frame" x="145.5" y="76.5" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiG-uS-vS2">
+                                                    <rect key="frame" x="8" y="8" width="140" height="37"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbU-5v-Yxd">
+                                                    <rect key="frame" x="16" y="53" width="97" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zu3-Oh-CTy">
+                                                    <rect key="frame" x="8" y="151.5" width="31" height="14.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="crT-2i-dxJ">
+                                                    <rect key="frame" x="245" y="47" width="80" height="80"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="crT-2i-dxJ" secondAttribute="height" multiplier="1:1" id="84U-yc-Njq"/>
+                                                        <constraint firstAttribute="width" constant="80" id="ep1-PU-iy9"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" name="Favourite Location Cell Color"/>
+                                            <color key="backgroundColor" red="0.41960784313725491" green="0.72899997234344482" blue="0.92500001192092896" alpha="0.78179433394451525" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstItem="EiG-uS-vS2" firstAttribute="centerY" secondItem="oyH-NT-apE" secondAttribute="centerY" id="7Tb-vO-2uV"/>
-                                                <constraint firstItem="EiG-uS-vS2" firstAttribute="centerX" secondItem="oyH-NT-apE" secondAttribute="centerX" id="RVq-U2-cd4"/>
+                                                <constraint firstItem="crT-2i-dxJ" firstAttribute="centerY" secondItem="oyH-NT-apE" secondAttribute="centerY" id="9N2-Rq-T46"/>
+                                                <constraint firstItem="QbU-5v-Yxd" firstAttribute="leading" secondItem="oyH-NT-apE" secondAttribute="leading" constant="16" id="GCZ-2x-Osh"/>
+                                                <constraint firstItem="EiG-uS-vS2" firstAttribute="top" secondItem="oyH-NT-apE" secondAttribute="top" constant="8" id="Ida-OQ-gs2"/>
+                                                <constraint firstItem="EiG-uS-vS2" firstAttribute="leading" secondItem="oyH-NT-apE" secondAttribute="leading" constant="8" id="Oqb-yK-ziG"/>
+                                                <constraint firstAttribute="trailing" secondItem="crT-2i-dxJ" secondAttribute="trailing" constant="8" id="Yi8-Lz-HkU"/>
+                                                <constraint firstItem="QbU-5v-Yxd" firstAttribute="top" secondItem="EiG-uS-vS2" secondAttribute="bottom" constant="8" id="k96-oz-5NA"/>
+                                                <constraint firstAttribute="bottom" secondItem="zu3-Oh-CTy" secondAttribute="bottom" constant="8" id="tyi-dd-Dqe"/>
+                                                <constraint firstItem="zu3-Oh-CTy" firstAttribute="leading" secondItem="oyH-NT-apE" secondAttribute="leading" constant="8" id="uL9-mC-H3X"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="333" height="174"/>
                                         <connections>
-                                            <outlet property="cityLabel" destination="EiG-uS-vS2" id="Z6U-G0-a5N"/>
+                                            <outlet property="descriptionLabel" destination="zu3-Oh-CTy" id="0td-DO-ic2"/>
+                                            <outlet property="locationLabel" destination="EiG-uS-vS2" id="3JP-u6-SgQ"/>
+                                            <outlet property="temperatureLabel" destination="QbU-5v-Yxd" id="Ljn-9x-sMU"/>
+                                            <outlet property="weatherConditionImageView" destination="crT-2i-dxJ" id="Z7J-6g-EC8"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -67,11 +94,11 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="BOQ-zm-2DT" secondAttribute="bottom" constant="30" id="3NQ-bP-GBF"/>
                             <constraint firstItem="cwL-ZN-r1F" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="9ep-K7-Jw2"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="BOQ-zm-2DT" secondAttribute="trailing" id="I0M-Ka-Tv6"/>
                             <constraint firstAttribute="bottom" secondItem="cwL-ZN-r1F" secondAttribute="bottom" id="NLQ-OG-XLb"/>
-                            <constraint firstItem="BOQ-zm-2DT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Zv9-g1-8mx"/>
+                            <constraint firstItem="BOQ-zm-2DT" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="Pbv-KP-x7w"/>
                             <constraint firstItem="cwL-ZN-r1F" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="kKV-MU-tU2"/>
                             <constraint firstItem="cwL-ZN-r1F" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="mV4-oS-bz1"/>
+                            <constraint firstAttribute="trailing" secondItem="BOQ-zm-2DT" secondAttribute="trailing" id="wRj-fF-79C"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2SB-VV-tNl"/>
@@ -86,9 +113,6 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="Favourite Location Cell Color">
-            <color red="0.41999998688697815" green="0.72899997234344482" blue="0.92500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
