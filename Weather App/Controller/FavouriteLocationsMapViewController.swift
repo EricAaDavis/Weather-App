@@ -19,7 +19,6 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     var snapshot = NSDiffableDataSourceSnapshot<String, Weather>()
     var dataSource: DataSourceType!
     var currentIndexPath: IndexPath = IndexPath(row: 0, section: 0)
-    
     let weatherLocations: [Weather]
     var currentlyDisplayedLocation: Weather? {
         didSet {
@@ -38,10 +37,8 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         createAnnotations(for: weatherLocations)
-        
         
         collectionView.delegate = self
         dataSource = createDataSource()
@@ -60,13 +57,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     func showNewLocationOnMap(location: Weather) {
 //        self.favouriteLocationsMapView.se
-        let regionToDisplay = MKCoordinateRegion(center:
-                                                    CLLocationCoordinate2D(
-                                                        latitude: CLLocationDegrees(location.coordinate.lat),
-                                                        longitude: CLLocationDegrees(location.coordinate.lon)),
-                                                 span: MKCoordinateSpan(
-                                                    latitudeDelta: 2,
-                                                    longitudeDelta: 2)
+        let regionToDisplay = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(location.coordinate.lat), longitude: CLLocationDegrees(location.coordinate.lon)), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
         )
         favouriteLocationsMapView.setRegion(regionToDisplay, animated: true)
     }
@@ -138,7 +129,6 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
                 self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
             }
         }
-        
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
