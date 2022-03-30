@@ -113,6 +113,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3VQ-xJ-tX5">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="scrollEdgeAppearance" backgroundEffect="systemUltraThinMaterial"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

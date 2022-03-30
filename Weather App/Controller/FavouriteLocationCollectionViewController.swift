@@ -21,7 +21,6 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         viewModel.delegate = self
 
         dataSource = createDataSource()
@@ -38,7 +37,6 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
         let savedWeatherLocations = viewModel.model.weatherLocations.sorted { lhs, rhs in
             lhs.cityName < rhs.cityName
         }
-        print(savedWeatherLocations)
         
         snapshot.deleteAllItems()
         snapshot.appendSections(["favourite locations"])
@@ -63,13 +61,12 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
                 weatherConditionID: weatherCondition)
             
             return cell
-            
         }
         return dataSource
     }
     
     func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 10
+        let spacing: CGFloat = 15
         
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -122,7 +119,6 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
                                                                     
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let config = UIContextMenuConfiguration (identifier: nil, previewProvider: nil) { _ in
             let item = self.dataSource.itemIdentifier(for: indexPath)!
@@ -134,13 +130,5 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
             return UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: [], children: [removeToggle])
         }
         return config
-    }
-}
-
-
-class QuickVc: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .blue
     }
 }

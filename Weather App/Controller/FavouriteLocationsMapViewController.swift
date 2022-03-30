@@ -103,7 +103,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     }
     
     func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 15
+        let spacing: CGFloat = 10
         
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -134,11 +134,8 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, environment in
             guard let self = self else { return }
             guard let indexPath = self.collectionView.centerIndexPath() else { return }
-
-            self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
-
             if self.currentIndexPath != indexPath {
-
+                self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
             }
         }
         

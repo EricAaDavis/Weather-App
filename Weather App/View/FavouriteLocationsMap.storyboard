@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -66,7 +67,7 @@
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.41960784313725491" green="0.72899997234344482" blue="0.92500001192092896" alpha="0.78179433394451525" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="Favourite Location Cell Color"/>
                                             <constraints>
                                                 <constraint firstItem="crT-2i-dxJ" firstAttribute="centerY" secondItem="oyH-NT-apE" secondAttribute="centerY" id="9N2-Rq-T46"/>
                                                 <constraint firstItem="QbU-5v-Yxd" firstAttribute="leading" secondItem="oyH-NT-apE" secondAttribute="leading" constant="16" id="GCZ-2x-Osh"/>
@@ -113,6 +114,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Favourite Location Cell Color">
+            <color red="0.41999998688697815" green="0.72899997234344482" blue="0.92500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
