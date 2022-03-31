@@ -49,7 +49,7 @@ class ForecastViewModel {
         }
     }
     
-   static func weatherImage(for number: Int) -> String {
+   static func weatherConditionSymbol(for number: Int) -> String {
         switch number {
             //Thunderstorm
         case 200...232: return  "cloud.bolt.rain"
@@ -75,6 +75,35 @@ class ForecastViewModel {
         case 803...804: return "cloud"
             //Clear sky
         default: return "sun.max"
+        }
+    }
+    
+    static func weatherConditionImage(for number: Int) -> String {
+        switch number {
+            //Thunderstorm
+        case 200...232: return  "clear"
+            //Drizzle
+        case 300...321: return "Rain"
+            //Rainy
+        case 500...531: return  "Rain"
+            //Snowing
+        case 600...622: return "Snow"
+            //Smoke
+        case 711: return "Fog"
+            //Hazy
+        case 721: return "Fog"
+            //Fogy
+        case 741: return "Fog"
+            //Dusty
+        case 761: return "Sand"
+            //Tornado
+        case 781: return "Tornado"
+            //Scattered clouds
+        case 801...802: return "Cloud with sun"
+            //Cloudy
+        case 803...804: return "Clouds"
+            //Clear sky
+        default: return "Clear"
         }
     }
 }

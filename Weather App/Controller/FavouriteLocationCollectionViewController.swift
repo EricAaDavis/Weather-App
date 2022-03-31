@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class FavouriteLocationCollectionViewController: UICollectionViewController, FavoriteLocationsDelegate {
 
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, Weather>
@@ -60,6 +58,9 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
                 description: description,
                 weatherConditionID: weatherCondition)
             
+            let imageName = ForecastViewModel.weatherConditionImage(for: weatherCondition)
+            cell.weatherConditionImageView.image = UIImage(named: imageName)
+            
             return cell
         }
         return dataSource
@@ -98,25 +99,21 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
         return layout
     }
     
+    func pushMapViewController(indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "FavouriteLocationsMap", bundle: nil)
+        let favouriteLocationsMapView = storyboard.instantiateViewController(identifier: "FavouriteLocationsMapVC", creator: {coder in
+            return FavouriteLocationsMapViewController(coder: coder, viewModel: self.viewModel, currentIndexPath: indexPath)
+        })
+        self.navigationController?.pushViewController(favouriteLocationsMapView, animated: true)
+    }
+    
     func itemsChanged() {
         updateCollectionView()
     }
     
-    @IBAction func test(_ sender: UIBarButtonItem) {
-        print("These are the locations \(viewModel.model.weatherLocations)")
-        print("Test")
-        let storyboard = UIStoryboard(name: "FavouriteLocationsMap", bundle: nil)
-        
-        
-        let favouriteLocationsMapView = storyboard.instantiateViewController(identifier: "FavouriteLocationsMapVC", creator: {coder in
-            let sortedWeatherLocations = self.viewModel.model.weatherLocations.sorted(by: { lhs, rhs in
-                lhs.cityName < rhs.cityName
-            })
-           return FavouriteLocationsMapViewController(coder: coder, weatherLocations: sortedWeatherLocations)
-        })
-        self.navigationController?.pushViewController(favouriteLocationsMapView, animated: true)
-        
-                                                                    
+    @IBAction func showMapView(_ sender: UIBarButtonItem) {
+        let defaultIndexPath: IndexPath = IndexPath(row: 0, section: 0)
+        pushMapViewController(indexPath: defaultIndexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -131,4 +128,9 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
         }
         return config
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        pushMapViewController(indexPath: indexPath)
+    }
+    
 }

@@ -9,25 +9,42 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDelegate, UIScrollViewDelegate {
+class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDelegate, UIScrollViewDelegate, FavouriteLocationsDelegateMap {
 
     @IBOutlet weak var favouriteLocationsMapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, Weather>
     
     var snapshot = NSDiffableDataSourceSnapshot<String, Weather>()
     var dataSource: DataSourceType!
-    var currentIndexPath: IndexPath = IndexPath(row: 0, section: 0)
-    let weatherLocations: [Weather]
+    var currentIndexPath: IndexPath
+    let viewModel: FavoriteLocationsViewModel
+    var weatherLocations: [Weather] {
+        viewModel.model.weatherLocations.sorted { lhs, rhs in
+            lhs.cityName < rhs.cityName
+        }
+    }
     var currentlyDisplayedLocation: Weather? {
         didSet {
             showNewLocationOnMap(location: self.currentlyDisplayedLocation!)
         }
     }
     
-    init?(coder: NSCoder, weatherLocations: [Weather]) {
-        self.weatherLocations = weatherLocations
+    var expanded = false
+    var collectionViewHeight: CGFloat!
+    var collectionViewHeighStored = false
+    
+    var collectionViewHeightToSet: CGFloat {
+        let safeAreaTop = view.safeAreaInsets.top
+        let safeAreaBottom = view.safeAreaInsets.bottom
+        return (view.frame.height - ( safeAreaTop + safeAreaBottom )) * 0.9
+    }
+    
+    init?(coder: NSCoder, viewModel: FavoriteLocationsViewModel, currentIndexPath: IndexPath) {
+        self.viewModel = viewModel
+        self.currentIndexPath = currentIndexPath
         super.init(coder: coder)
     }
     
@@ -40,24 +57,34 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
 
         createAnnotations(for: weatherLocations)
         
+        viewModel.delegateMap = self
         collectionView.delegate = self
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
         
-        updateCollectionView()
-        
-        currentlyDisplayedLocation = weatherLocations[0]
+//        currentlyDisplayedLocation = weatherLocations[0]
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        currentlyDisplayedLocation = weatherLocations[0]
+        viewModel.getWeatherForStoredLocations()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if collectionViewHeight == nil {
+            self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
+            collectionViewHeight = collectionView.frame.height
+        }
+        
+        
     }
     
     func showNewLocationOnMap(location: Weather) {
 //        self.favouriteLocationsMapView.se
-        let regionToDisplay = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(location.coordinate.lat), longitude: CLLocationDegrees(location.coordinate.lon)), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+        let offset: Float = 0.2
+        let regionToDisplay = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(location.coordinate.lat - offset), longitude: CLLocationDegrees(location.coordinate.lon)), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
         )
         favouriteLocationsMapView.setRegion(regionToDisplay, animated: true)
     }
@@ -71,8 +98,10 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     }
     
     func updateCollectionView() {
+        
         snapshot.deleteAllItems()
         snapshot.appendSections(["Locations"])
+        print(weatherLocations)
         snapshot.appendItems(weatherLocations)
         
         dataSource.apply(snapshot)
@@ -94,7 +123,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     }
     
     func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 10
+        let spacing: CGFloat = 6
         
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -109,7 +138,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
             trailing: spacing)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.8),
+            widthDimension: .fractionalWidth(0.9),
             heightDimension: .fractionalHeight(1.0)
         )
         
@@ -125,8 +154,9 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, environment in
             guard let self = self else { return }
             guard let indexPath = self.collectionView.centerIndexPath() else { return }
+            self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
             if self.currentIndexPath != indexPath {
-                self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
+                
             }
         }
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -136,6 +166,45 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     func centerIndexPath(point: CGPoint) -> IndexPath? {
         guard let indexPath = collectionView.indexPathForItem(at: point) else { return nil }
         return indexPath
+    }
+    
+    func itemsChanged() {
+        updateCollectionView()
+        collectionView.scrollToItem(at: currentIndexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        print(collectionView.centerIndexPath())
+//    }
+    
+    func calculateCollectionViewHeight(state: Bool) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Safe area top \(view.safeAreaInsets.top)")
+        print("Safe area bottom \(view.safeAreaInsets.bottom)")
+        print("collection view constraint height\(self.collectionViewHeightConstraint.constant)")
+        
+        print("collection view height to set \(collectionViewHeightToSet)")
+        if !expanded {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
+                print("1 \(self.collectionViewHeightConstraint.constant)")
+                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet
+                print("2 \(self.collectionViewHeightConstraint.constant)")
+                self.view.layoutIfNeeded()
+            } completion: { _ in }
+            expanded.toggle()
+        } else {
+
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
+                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
+                self.view.layoutIfNeeded()
+            } completion: { _ in }
+//        collectionViewHeightConstraint.constant = 0
+        
+            expanded.toggle()
+        }
     }
 }
 

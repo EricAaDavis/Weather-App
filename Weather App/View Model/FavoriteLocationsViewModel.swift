@@ -11,9 +11,14 @@ protocol FavoriteLocationsDelegate: AnyObject {
     func itemsChanged()
 }
 
+protocol FavouriteLocationsDelegateMap: AnyObject {
+    func itemsChanged()
+}
+
 final class FavoriteLocationsViewModel {
     
     weak var delegate: FavoriteLocationsDelegate?
+    weak var delegateMap: FavouriteLocationsDelegateMap?
     
     let favoriteLocationsManager = FavouriteLocationsManager()
     
@@ -37,6 +42,7 @@ final class FavoriteLocationsViewModel {
         }
         group.notify(queue: .main) {
             self.delegate?.itemsChanged()
+            self.delegateMap?.itemsChanged()
         }
     }
 }

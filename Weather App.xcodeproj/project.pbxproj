@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20415A5027E8ADA200A8F4F3 /* Example.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20415A4F27E8ADA200A8F4F3 /* Example.storyboard */; };
 		20415A5327E8AF1000A8F4F3 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20415A5227E8AF1000A8F4F3 /* Storyboarded.swift */; };
-		20415A5527E8AF4400A8F4F3 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20415A5427E8AF4400A8F4F3 /* ExampleViewController.swift */; };
 		20534A4827E1D725006ED499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20534A4727E1D725006ED499 /* AppDelegate.swift */; };
 		20534A4A27E1D725006ED499 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20534A4927E1D725006ED499 /* SceneDelegate.swift */; };
 		20534A4F27E1D725006ED499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20534A4D27E1D725006ED499 /* Main.storyboard */; };
@@ -44,7 +42,6 @@
 		20DC8CA527EDB87E00E00EEE /* FavoriteLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA427EDB87E00E00EEE /* FavoriteLocationsViewModel.swift */; };
 		20DC8CA727EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA627EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift */; };
 		20DC8CA927EDC21B00E00EEE /* StoredLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DC8CA827EDC21B00E00EEE /* StoredLocations.swift */; };
-		20DE426127F31EFD007855F0 /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE426027F31EFD007855F0 /* MapCollectionViewCell.swift */; };
 		20FA691F27EB254F002B5048 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,9 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		20415A4F27E8ADA200A8F4F3 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
 		20415A5227E8AF1000A8F4F3 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
-		20415A5427E8AF4400A8F4F3 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		20534A4427E1D725006ED499 /* Weather App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20534A4727E1D725006ED499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20534A4927E1D725006ED499 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +94,6 @@
 		20DC8CA427EDB87E00E00EEE /* FavoriteLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationsViewModel.swift; sourceTree = "<group>"; };
 		20DC8CA627EDBD8500E00EEE /* FavoriteWeatherLocationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWeatherLocationTest.swift; sourceTree = "<group>"; };
 		20DC8CA827EDC21B00E00EEE /* StoredLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredLocations.swift; sourceTree = "<group>"; };
-		20DE426027F31EFD007855F0 /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 		20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,8 +151,8 @@
 				20415A5127E8AEFF00A8F4F3 /* Utils */,
 				20534A8B27E21DF1006ED499 /* Networking */,
 				20534A8C27E21E07006ED499 /* Manager */,
-				20534A5D27E1D826006ED499 /* Controller */,
 				20AAE0CB27E3714F00543DC1 /* View Model */,
+				20534A5D27E1D826006ED499 /* Controller */,
 				20534A5C27E1D81E006ED499 /* View */,
 				20534A5B27E1D813006ED499 /* Model */,
 				20534A5027E1D726006ED499 /* Assets.xcassets */,
@@ -190,7 +184,6 @@
 			children = (
 				20534A5227E1D726006ED499 /* LaunchScreen.storyboard */,
 				20534A4D27E1D725006ED499 /* Main.storyboard */,
-				20415A4F27E8ADA200A8F4F3 /* Example.storyboard */,
 				20C60F9D27EC6F0800697BC2 /* SearchResults.storyboard */,
 				20DC8C9927ECCC1D00E00EEE /* FavouriteLocations.storyboard */,
 				206210FB27F1EA540047F7C9 /* FavouriteLocationsMap.storyboard */,
@@ -202,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				20A940CE27E34CD5001504DA /* ForecastWeatherViewController.swift */,
-				20415A5427E8AF4400A8F4F3 /* ExampleViewController.swift */,
 				20FA691E27EB254F002B5048 /* ResultsTableViewController.swift */,
 				206210F927F1CEC00047F7C9 /* FavouriteLocationCollectionViewController.swift */,
 				206210FD27F1EADD0047F7C9 /* FavouriteLocationsMapViewController.swift */,
@@ -260,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				20DC8C9B27ECD67F00E00EEE /* FavouriteLocationCollectionViewCell.swift */,
-				20DE426027F31EFD007855F0 /* MapCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -348,7 +339,6 @@
 			files = (
 				20C60F9E27EC6F0800697BC2 /* SearchResults.storyboard in Resources */,
 				20534A5427E1D726006ED499 /* LaunchScreen.storyboard in Resources */,
-				20415A5027E8ADA200A8F4F3 /* Example.storyboard in Resources */,
 				206210FC27F1EA540047F7C9 /* FavouriteLocationsMap.storyboard in Resources */,
 				20534A5127E1D726006ED499 /* Assets.xcassets in Resources */,
 				20534A4F27E1D725006ED499 /* Main.storyboard in Resources */,
@@ -377,7 +367,6 @@
 				20DC8CA527EDB87E00E00EEE /* FavoriteLocationsViewModel.swift in Sources */,
 				20534AA527E31DD6006ED499 /* Wind.swift in Sources */,
 				2062110227F201020047F7C9 /* Coordinate.swift in Sources */,
-				20DE426127F31EFD007855F0 /* MapCollectionViewCell.swift in Sources */,
 				2060805327E89E1500FED14E /* Locations.swift in Sources */,
 				20534A4827E1D725006ED499 /* AppDelegate.swift in Sources */,
 				20DC8C9C27ECD67F00E00EEE /* FavouriteLocationCollectionViewCell.swift in Sources */,
@@ -395,7 +384,6 @@
 				20415A5327E8AF1000A8F4F3 /* Storyboarded.swift in Sources */,
 				20DC8CA327EDAFF900E00EEE /* WeatherStore.swift in Sources */,
 				20DC8CA027EDAEB600E00EEE /* FavouriteLocationsManager.swift in Sources */,
-				20415A5527E8AF4400A8F4F3 /* ExampleViewController.swift in Sources */,
 				20C60FA427EC8B7E00697BC2 /* Sys.swift in Sources */,
 				20C60FA627EC946600697BC2 /* RequestType.swift in Sources */,
 			);
