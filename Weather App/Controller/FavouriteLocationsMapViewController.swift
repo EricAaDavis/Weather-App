@@ -9,7 +9,14 @@ import UIKit
 import CoreLocation
 import MapKit
 
+protocol FavouriteLocationsMapViewControllerDelegate: AnyObject {
+    func cellHeightExpanded()
+    func cellHeightCollapsed()
+}
+
 class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDelegate, UIScrollViewDelegate, FavouriteLocationsDelegateMap {
+    
+    weak var delegate: FavouriteLocationsMapViewControllerDelegate?
 
     @IBOutlet weak var favouriteLocationsMapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,6 +28,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     var dataSource: DataSourceType!
     var currentIndexPath: IndexPath
     let viewModel: FavoriteLocationsViewModel
+    
     var weatherLocations: [Weather] {
         viewModel.model.weatherLocations.sorted { lhs, rhs in
             lhs.cityName < rhs.cityName
@@ -32,14 +40,12 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         }
     }
     
-    var expanded = false
+    var cellIsExpanded = false
     var collectionViewHeight: CGFloat!
-    var collectionViewHeighStored = false
-    
     var collectionViewHeightToSet: CGFloat {
         let safeAreaTop = view.safeAreaInsets.top
         let safeAreaBottom = view.safeAreaInsets.bottom
-        return (view.frame.height - ( safeAreaTop + safeAreaBottom )) * 0.9
+        return (view.frame.height - ( safeAreaTop + safeAreaBottom ))
     }
     
     init?(coder: NSCoder, viewModel: FavoriteLocationsViewModel, currentIndexPath: IndexPath) {
@@ -62,8 +68,6 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
-        
-//        currentlyDisplayedLocation = weatherLocations[0]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,12 +81,9 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
             self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
             collectionViewHeight = collectionView.frame.height
         }
-        
-        
     }
     
     func showNewLocationOnMap(location: Weather) {
-//        self.favouriteLocationsMapView.se
         let offset: Float = 0.2
         let regionToDisplay = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(location.coordinate.lat - offset), longitude: CLLocationDegrees(location.coordinate.lon)), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
         )
@@ -109,15 +110,23 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: C.shared.mapCellReuseIdentifier, for: indexPath) as! FavouriteLocationCollectionViewCell
             
-            cell.setupCell(
-                location: item.cityName,
-                temperature: item.condition.temp,
-                description: item.weatherDescription[0].description,
-                weatherConditionID: item.weatherDescription[0].id)
-        
-            return cell
+            if !(self.cellIsExpanded){
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: C.shared.mapCellReuseIdentifier, for: indexPath) as! FavouriteLocationCollectionViewCell
+                
+                cell.setupCell(
+                    location: item.cityName,
+                    temperature: item.condition.temp,
+                    description: item.weatherDescription[0].description,
+                    weatherConditionID: item.weatherDescription[0].id)
+            
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCell", for: indexPath) as! TestCollectionViewCell
+                
+                cell.setUpCell(for: item)
+                return cell
+            }
         }
         return dataSource
     }
@@ -149,14 +158,13 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         )
         
         let section = NSCollectionLayoutSection(group: group)
-//        section.interGroupSpacing = spacing
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
         section.orthogonalScrollingBehavior = .groupPagingCentered
         section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, environment in
             guard let self = self else { return }
             guard let indexPath = self.collectionView.centerIndexPath() else { return }
             self.currentlyDisplayedLocation = self.weatherLocations[indexPath.row]
             if self.currentIndexPath != indexPath {
-                
             }
         }
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -173,42 +181,34 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
         collectionView.scrollToItem(at: currentIndexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        print(collectionView.centerIndexPath())
-//    }
-    
-    func calculateCollectionViewHeight(state: Bool) {
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Safe area top \(view.safeAreaInsets.top)")
-        print("Safe area bottom \(view.safeAreaInsets.bottom)")
-        print("collection view constraint height\(self.collectionViewHeightConstraint.constant)")
-        
-        print("collection view height to set \(collectionViewHeightToSet)")
-        if !expanded {
+        if !cellIsExpanded {
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
+                self.delegate?.cellHeightExpanded()
                 print("1 \(self.collectionViewHeightConstraint.constant)")
-                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet
+                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.9
                 print("2 \(self.collectionViewHeightConstraint.constant)")
                 self.view.layoutIfNeeded()
-            } completion: { _ in }
-            expanded.toggle()
+            } completion: { _ in
+                self.cellIsExpanded.toggle()
+                collectionView.reloadData()
+            }
         } else {
-
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
+                self.delegate?.cellHeightCollapsed()
                 self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
                 self.view.layoutIfNeeded()
-            } completion: { _ in }
-//        collectionViewHeightConstraint.constant = 0
-        
-            expanded.toggle()
+            } completion: { _ in
+                self.cellIsExpanded.toggle()
+                collectionView.reloadData()
+            }
         }
+        
     }
 }
 
 extension UICollectionView {
+    
     func centerIndexPath() -> IndexPath? {
         guard
             let point = superview?.convert(center, to: self),
@@ -223,7 +223,6 @@ extension UICollectionView {
         guard let indexPath = centerIndexPath() else {
             return (nil, nil)
         }
-
         let leftCell = cellForItem(at: IndexPath(item: indexPath.item-1, section: indexPath.section))
         let rightCell = cellForItem(at: IndexPath(item: indexPath.item+1, section: indexPath.section))
 

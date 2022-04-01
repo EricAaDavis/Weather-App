@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200CE0B027F70CC400A8AC4E /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200CE0AF27F70CC300A8AC4E /* TestCollectionViewCell.swift */; };
 		20415A5327E8AF1000A8F4F3 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20415A5227E8AF1000A8F4F3 /* Storyboarded.swift */; };
 		20534A4827E1D725006ED499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20534A4727E1D725006ED499 /* AppDelegate.swift */; };
 		20534A4A27E1D725006ED499 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20534A4927E1D725006ED499 /* SceneDelegate.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		200CE0AF27F70CC300A8AC4E /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
 		20415A5227E8AF1000A8F4F3 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		20534A4427E1D725006ED499 /* Weather App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20534A4727E1D725006ED499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				20DC8C9B27ECD67F00E00EEE /* FavouriteLocationCollectionViewCell.swift */,
+				200CE0AF27F70CC300A8AC4E /* TestCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				2060805127E89D7900FED14E /* CityData.swift in Sources */,
 				20DC8C9E27EDA84F00E00EEE /* Constants.swift in Sources */,
 				20534A9D27E22A9D006ED499 /* APIService.swift in Sources */,
+				200CE0B027F70CC400A8AC4E /* TestCollectionViewCell.swift in Sources */,
 				20A940CF27E34CD5001504DA /* ForecastWeatherViewController.swift in Sources */,
 				20DC8CA527EDB87E00E00EEE /* FavoriteLocationsViewModel.swift in Sources */,
 				20534AA527E31DD6006ED499 /* Wind.swift in Sources */,
