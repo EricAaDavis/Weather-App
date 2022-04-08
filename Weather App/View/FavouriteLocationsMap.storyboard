@@ -125,7 +125,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWO-W0-HeI">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWO-W0-HeI" userLabel="Detailed Weather Data">
                                                     <rect key="frame" x="0.0" y="96" width="359" height="493"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2j-Pg-Ifk">
@@ -271,6 +271,7 @@
                                             <outlet property="cityNameLabel" destination="hgO-ff-7ly" id="OGX-aE-JBW"/>
                                             <outlet property="currentTemperatureLabel" destination="wuM-Qa-e49" id="rxH-Pb-nMa"/>
                                             <outlet property="descriptionLabel" destination="ubK-vq-aFt" id="7Sg-WK-Ubm"/>
+                                            <outlet property="detailedWeatherDataView" destination="zWO-W0-HeI" id="8IX-SN-7YF"/>
                                             <outlet property="feelsLikeTemperatureLabel" destination="vnp-pL-zcl" id="uuz-eg-rS8"/>
                                             <outlet property="humidityLabel" destination="Z4s-dp-qa3" id="f4b-Qb-Kpu"/>
                                             <outlet property="maxTempLabel" destination="g52-6h-sRV" id="mLZ-CR-qew"/>

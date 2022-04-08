@@ -9,14 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-protocol FavouriteLocationsMapViewControllerDelegate: AnyObject {
-    func cellHeightExpanded()
-    func cellHeightCollapsed()
-}
-
 class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDelegate, UIScrollViewDelegate, FavouriteLocationsDelegateMap {
-    
-    weak var delegate: FavouriteLocationsMapViewControllerDelegate?
 
     @IBOutlet weak var favouriteLocationsMapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -125,6 +118,7 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCell", for: indexPath) as! TestCollectionViewCell
                 
                 cell.setUpCell(for: item)
+                cell.animateOnAppear()
                 return cell
             }
         }
@@ -183,25 +177,20 @@ class FavouriteLocationsMapViewController: UIViewController, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if !cellIsExpanded {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
-                self.delegate?.cellHeightExpanded()
-                print("1 \(self.collectionViewHeightConstraint.constant)")
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
                 self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.9
-                print("2 \(self.collectionViewHeightConstraint.constant)")
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.cellIsExpanded.toggle()
                 collectionView.reloadData()
             }
         } else {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
-                self.delegate?.cellHeightCollapsed()
-                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
-                self.view.layoutIfNeeded()
-            } completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) {
                 self.cellIsExpanded.toggle()
                 collectionView.reloadData()
-            }
+                self.collectionViewHeightConstraint.constant = self.collectionViewHeightToSet * 0.25
+                self.view.layoutIfNeeded()
+            } completion: { _ in }
         }
         
     }

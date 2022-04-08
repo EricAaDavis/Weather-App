@@ -21,6 +21,7 @@ class TestCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var weatherConditionImage: UIImageView!
+    @IBOutlet weak var detailedWeatherDataView: UIView!
     
     
     override func awakeFromNib() {
@@ -39,12 +40,17 @@ class TestCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpCell(for weather: Weather){
+        detailedWeatherDataView.alpha = 0
+        let weatherConditionImageName = ForecastViewModel.weatherConditionImage(for: weather.weatherDescription[0].id)
+        weatherConditionImage.image = UIImage(named: weatherConditionImageName)
         cityNameLabel.text = weather.cityName
         
         let currentTemperatureRounded = preciseRound(weather.condition.temp, precision: .tenths)
         currentTemperatureLabel.text = "\(currentTemperatureRounded) C˚"
-        let weatherConditionSymboleName = ForecastViewModel.weatherConditionSymbol(for: weather.weatherDescription[0].id)
-        weatherConditionSymbolImage.image = UIImage(systemName: weatherConditionSymboleName)
+        
+        let weatherConditionSymbolName = ForecastViewModel.weatherConditionSymbol(for: weather.weatherDescription[0].id)
+        weatherConditionSymbolImage.image = UIImage(systemName: weatherConditionSymbolName)
+        
         descriptionLabel.text = weather.weatherDescription[0].description
         
         let maxTempRounded = preciseRound(weather.condition.temp_max, precision: .tenths)
@@ -60,9 +66,13 @@ class TestCollectionViewCell: UICollectionViewCell {
         humidityLabel.text = "\(weather.condition.humidity)%"
         
         pressureLabel.text = "\(weather.condition.pressure)hPa"
-        
-        let weatherConditionImageName = ForecastViewModel.weatherConditionImage(for: weather.weatherDescription[0].id)
-        weatherConditionImage.image = UIImage(named: weatherConditionImageName)
+    }
+    
+    func animateOnAppear() {
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut) {
+            self.detailedWeatherDataView.alpha = 1
+        } completion: { _ in}
+
     }
     
 }

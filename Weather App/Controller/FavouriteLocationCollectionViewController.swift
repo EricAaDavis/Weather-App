@@ -9,6 +9,8 @@ import UIKit
 
 class FavouriteLocationCollectionViewController: UICollectionViewController, FavoriteLocationsDelegate {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     typealias DataSourceType = UICollectionViewDiffableDataSource<String, Weather>
     
     var snapshot = NSDiffableDataSourceSnapshot<String, Weather>()
@@ -24,6 +26,8 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,6 +36,7 @@ class FavouriteLocationCollectionViewController: UICollectionViewController, Fav
     }
     
     func updateCollectionView() {
+        activityIndicator.stopAnimating()
         let savedWeatherLocations = viewModel.model.weatherLocations.sorted { lhs, rhs in
             lhs.cityName < rhs.cityName
         }

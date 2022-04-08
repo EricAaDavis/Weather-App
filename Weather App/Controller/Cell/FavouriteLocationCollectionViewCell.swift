@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouriteLocationCollectionViewCell: UICollectionViewCell, FavouriteLocationsMapViewControllerDelegate {
+class FavouriteLocationCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -32,7 +32,7 @@ class FavouriteLocationCollectionViewCell: UICollectionViewCell, FavouriteLocati
     }
     
     func setupCell(location: String, temperature: Float, description: String, weatherConditionID: Int) {
-        
+       
         locationLabel.text = location
         temperatureLabel.text = "\(preciseRound(temperature, precision: .tenths)) C˚"
         descriptionLabel.text = description
